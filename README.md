@@ -15,3 +15,15 @@ OPTIONS:
 Results:
 
 first,last, Title at X company
+
+**MRV-USERNAME-GENERATOR**
+
+ruby mrv-username-generator.rb -F format -f firstname -l lastname
+
+./mrv-username-generator.rb --list-formats
+
+Format
+lastnamef - lastname + first initial
+flastname - first initial + lastname
+firstnamel - firstname + last initial
+lfirstname - last initial + first name
