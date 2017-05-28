@@ -26,6 +26,7 @@ EOF
 QUICK=
 FULL=
 INTERFACE=
+DRIVER=
 SSID=
 CHANNEL=
 HW_MODE=
@@ -41,10 +42,15 @@ CURRENT_PATH="`pwd`"
 
 runCheck()
 {
+    if [[ $DRIVER == 'Y' ]] || [[ $DRIVER == 'y' ]]
+    then
+	iwconfig $INTERFACE txpower 30
+    else
+    	nmcli n off
+    	rfkill unblock all
+    	ifconfig $INTERFACE up
+    fi
     echo "[!] Hostapd-wpe automation script v.1 - Viet Luu"
-    nmcli n off
-    rfkill unblock all
-    ifconfig $INTERFACE up
     docker run --rm -t -i --name=hostapd-wpe-ap -v $(pwd):/conf --privileged --net="host" hostapd-wpe-domain hostapd-wpe conf/hostapd-wpe.conf | tee $CURRENT_PATH/logs/$LogName.log
 }
 
@@ -79,6 +85,8 @@ else
     then
         echo -n '[?] Interface [ENTER]: '
         read INTERFACE
+        echo -n '[?] rtl88xxau Driver (Y/N)'
+	read DRIVER
         echo -n '[?] SSID [ENTER]: '
         read SSID
         echo -n '[?] CHANNEL [ENTER]: '

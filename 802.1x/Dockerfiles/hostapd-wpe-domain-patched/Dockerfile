@@ -20,9 +20,9 @@ RUN apt-get install -y \
 	patch \
 	make \
 	gcc \
-	libssl-dev \
 	libnl-3-dev \
-	libnl-genl-3-dev
+	libnl-genl-3-dev\
+	libssl1.0-dev
 
 # Use baseimage-docker's init system
 
