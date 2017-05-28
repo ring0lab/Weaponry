@@ -144,6 +144,10 @@ else
 
         sh $CURRENT_PATH/certs/bootstrap 
 
+	# Add logs folder
+
+	mkdir -p $CURRENT_PATH/logs
+
         runCheck
 
     else

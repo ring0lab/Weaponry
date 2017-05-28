@@ -139,6 +139,10 @@ else
 	rm -rf "$CURRENT_PATH/raddb/certs"
 	cp -r "$CURRENT_PATH/certs" "$CURRENT_PATH/raddb/certs"
 
+	# Add logs folder
+
+	mkdir -p $CURRENT_PATH/logs
+
         runCheck
 
     else
