@@ -27,3 +27,18 @@ lastnamef - lastname + first initial
 flastname - first initial + lastname
 firstnamel - firstname + last initial
 lfirstname - last initial + first name
+
+**Word-Video-Embed**
+
+- Create a word document with embedded video in it.
+- Save your document to docx.
+- Rename your document.docx to document.zip
+- Open and Edit document.xml with a text editor of your choice.
+- Find the line where it has "embeddedHtml".
+- Delete all the default value from "embeddedHtml" and Replace with &lt;script&gt;eval(atob('BASE64'));&lt;/script&gt;.
+- Replace the "base64Payload" in trigger.txt with your desired payload.
+- On Linux device, run the command: base64 -w trigger.txt > triggerB64.txt
+- On Windows device, use your favorite base64 encoder to encode the trigger.txt file. 
+- Copy encoding to document.xml and replace the BASE64 word with the encoded payload. 
+- Save document.xml and copy it back to word\document.xml 
+- Rename document.zip to document.docx 
