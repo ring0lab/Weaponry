@@ -46,13 +46,19 @@ lfirstname - last initial + first name
 **MacroInjection.py**
 
 python3 MacroInjection.py -h
+
 Usage: MacroInjection.py [options] filename
+
 Macro Remote Injection - Mr.V (Ring0Labs)
 
 Options:
+
   --version             show program's version number and exit
+  
   -h, --help            show this help message and exit
+  
   -f File, --file=File  Word Document File Name, ex: myword.docm
+  
   -t Type, --type=Type  Remote Server Type: smb | http | https  - Default
                         https
   -u URL, --url=URL     Remote Macro Template URL, ex: myserver.com/macro.dotm
